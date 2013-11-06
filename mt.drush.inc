@@ -247,8 +247,10 @@ function _mt_philosopher_get_fork($name, $fork_name) {
  *   my_teardown_function($thread_id);
  *   Your business logic can then run any cleanup which occurs when the
  *   thread completes.
+ * @param int $starting_offset
+ *   (optional) Start x records into the process.
  */
-function drush_thread_manager($job_count, $job_batch_size, $thread_count, $setup_function, $teardown_function = '') {
+function drush_thread_manager($job_count, $job_batch_size, $thread_count, $setup_function, $teardown_function = '', $starting_offset = 0) {
 
   if (!function_exists('proc_open')) {
     throw new Exception('proc_open command is needed to use multi threading.');
@@ -257,7 +259,7 @@ function drush_thread_manager($job_count, $job_batch_size, $thread_count, $setup
   $jobs_remaining = $job_count;
   $processes = array();
   $running = TRUE;
-  $offset = 0;
+  $offset = $starting_offset;
   $start = time();
 
   $descriptor_spec = array(
