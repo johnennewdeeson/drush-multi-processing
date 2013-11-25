@@ -7,6 +7,9 @@ Drupal 7.
 mt.drush.inc is the main multi threading 'engine' which should be placed in
 sites/all/drush directory for your site.
 
+mtm.drush.inc is an example of using the engine to speed up Drupal Migrate
+migrations
+
 mtq.drush.inc is an example of using the engine to speed up processing the
 Drupal Queue.
 
