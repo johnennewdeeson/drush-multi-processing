@@ -1,14 +1,14 @@
 name = Multi Threaded Migrate Example
 description = Module to migrate fake content into Drupal 7
 core = 7.x
-package = Migrate
+package = Migrate Examples
 php = 5.2.4
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = node
 dependencies[] = strongarm
 dependencies[] = text
-dependencies[] = migrate
+dependencies[] = migrate (>7.x-2.5)
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:1
 features[field][] = node-mtm_example_content_type-field_mtm_example_reference
