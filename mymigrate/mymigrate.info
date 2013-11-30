@@ -1,0 +1,7 @@
+name = "Migrate from XYZ"
+description = "Module to migrate fake content into Drupal 7"
+package = "Migration"
+core = 7.x
+dependencies[] = migrate
+files[] = mymigrate.module
+files[] = mymigrate.inc
