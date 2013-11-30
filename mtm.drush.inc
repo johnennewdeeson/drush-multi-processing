@@ -12,7 +12,7 @@
 function mtm_drush_command() {
   $items = array();
 
-  $items['mtm-migrate-import'] = array(
+  $items['mtm-import'] = array(
     'description' => 'Multithreaded migration',
     'arguments' => array(
       'class' => 'The name of the migration base class',
@@ -35,7 +35,9 @@ function mtm_drush_command() {
 /**
  * Multi threaded import.
  */
-function drush_mtm_migrate_import($class, $limit = 10, $batch_size = 10, $threads = 1) {
+function drush_mtm_import($class, $limit = 10, $batch_size = 10, $threads = 1) {
+  $time = time();
+
   try {
     $GLOBALS['mtm-migrate-baseclass'] = $class;
     $GLOBALS['mtm-migrate-runtime'] = time();
@@ -45,6 +47,9 @@ function drush_mtm_migrate_import($class, $limit = 10, $batch_size = 10, $thread
   catch (Exception $e) {
     drush_set_error($e->getMessage());
   }
+
+  $time = time() - $time;
+  drush_print("Time taken: {$time} seconds");
 }
 
 /**
@@ -63,6 +68,7 @@ function drush_mtm_migrate_import($class, $limit = 10, $batch_size = 10, $thread
 function _mtm_thread_setup($thread_id, $limit, $offset) {
   $class_name = $GLOBALS['mtm-migrate-baseclass'];
   $run_time = $GLOBALS['mtm-migrate-runtime'];
+
   $machine_name = _mtm_migrate_generate_machine_name($class_name, $thread_id, $run_time);
 
   MigrationBase::registerMigration(
@@ -130,7 +136,7 @@ function _mtm_migrate_destroy_chuncked_migrations($migrations) {
 /**
  * Remove old dynamically created migrations.
  */
-function drush_mtm_mt_migrate_cleanup() {
+function drush_mtm_migrate_cleanup() {
   $removals = array();
   $migration_objects = migrate_migrations();
 
