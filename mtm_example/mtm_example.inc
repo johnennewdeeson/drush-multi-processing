@@ -25,7 +25,7 @@ class MTMExample extends Migration {
     $this->description = t('mtm_example migration');
 
     $this->team = array(
-      new MigrateTeamMember('ceng', 'johne@deeson.co.uk', t('Cheif Engineer')),
+      new MigrateTeamMember('ceng', 'test@example.com', t('Cheif Engineer')),
     );
 
     $this->map = new MigrateSQLMap('mtm_example',
